@@ -1,3 +1,4 @@
 stress-aid/API_SECRET.*
 /.idea
 *.pyc
+.vscode/*
