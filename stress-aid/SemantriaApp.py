@@ -20,29 +20,31 @@ def analyse(txtInput):
 
     while len(results) != 1:
         print("Retrieving your processed results...", "\r\n")
-        time.sleep(0.5)
+        time.sleep(0.1)
         # get processed documents
         status = session.getProcessedDocuments()
         results.extend(status)
-
-
     for data in results:
-        # print document sentiment score
-        print("Document ", data["id"], " Sentiment score: ", data["sentiment_score"], "\r\n")
+        response = {'score':data["sentiment_score"], 'sentiment':str(data["sentiment_polarity"])}
+    return response
 
-        # print document themes
-        if "themes" in data:
-            print("Document themes:", "\r\n")
-            for theme in data["themes"]:
-                print("     ", theme["title"], " (sentiment: ", theme["sentiment_score"], ")", "\r\n")
+    # for data in results:
+    #     # print document sentiment score
+    #     print("Document ", data["id"], " Sentiment score: ", data["sentiment_score"], "\r\n")
 
-        # print document entities
-        if "entities" in data:
-            print("Entities:", "\r\n")
-            for entity in data["entities"]:
-                print("\t", entity["title"], " : ", entity["entity_type"]," (sentiment: ", entity["sentiment_score"], ")", "\r\n")
+    #     # print document themes
+    #     if "themes" in data:
+    #         print("Document themes:", "\r\n")
+    #         for theme in data["themes"]:
+    #             print("     ", theme["title"], " (sentiment: ", theme["sentiment_score"], ")", "\r\n")
 
+    #     # print document entities
+    #     if "entities" in data:
+    #         print("Entities:", "\r\n")
+    #         for entity in data["entities"]:
+    #             print("\t", entity["title"], " : ", entity["entity_type"]," (sentiment: ", entity["sentiment_score"], ")", "\r\n")
 
+    # return str(results)
 #####################################################################################
 
-#analyse("I am sad")
+print (str(analyse("I am sad")))
