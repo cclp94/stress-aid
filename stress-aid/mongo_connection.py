@@ -1,4 +1,4 @@
-from flask.ext.pymongo import PyMongo
+from flask_pymongo import PyMongo
 from flask import Flask
 app = Flask(__name__)
 
