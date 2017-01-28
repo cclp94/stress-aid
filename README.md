@@ -13,7 +13,4 @@ To update to the most recent version of pip:
 pip install --upgrade pip
 ```
 
-Install flask:
-```
-pip install flask
-```
+Run stress-aid/main.py and the server would be on port 5000 by default
