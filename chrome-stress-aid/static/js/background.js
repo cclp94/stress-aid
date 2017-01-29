@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender) {
   if ((msg.from === 'content')) {
     alert(msg.subject);
     var http = new XMLHttpRequest();
-    var url = "http://localhost:5000/updatetemp";
+    var url = "http://104.198.249.148:5000/updatetemp";
     var params = JSON.stringify({
       'account_id': 456,
       'message': msg.subject
