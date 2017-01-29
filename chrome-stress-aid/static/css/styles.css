@@ -1,0 +1,168 @@
+a {
+    transition:0.8s;
+    text-decoration:none;
+}
+
+/******************************
+          Index Page
+*******************************/
+#index{
+    min-width: 360px;
+}
+
+#wrapper{
+    margin: 0;
+    padding: 0;
+}
+
+#index-header{
+    background: beige;
+    overflow: hidden;
+    height: 50px;
+}
+
+#index-header h1{
+    float: left;
+}
+
+#index-header img{
+    float: right;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+}
+#video{
+    background: blue;
+    margin: -5px 0;
+    overflow: hidden;
+}
+
+#pizza{
+    background: red;
+    overflow: hidden;
+}
+/******************************
+          Landing Page
+*******************************/
+
+#landing-header{
+    margin: 0;
+    padding: 0;
+    height: 190px;
+    text-align: center;
+    background: #eee;
+    font-weight: 800;
+}
+
+#landing-header h1{
+    padding-top: 30px;
+    font-size: 50px;
+}
+h1{
+    font-family: 'Oswald', sans-serif;
+}
+
+h3{
+    font-family: 'Open sans', sans-serif;
+    text-transform: capitalize;
+}
+
+p{
+    font-family: 'Montserrat', sans-serif;
+}
+
+#container{
+    height: 350px;
+    background: url("../img/taking.jpg");
+    background-attachment: fixed;
+}
+
+#test-link{
+    height: inherit;
+    font-family: 'Lato', sans-serif;
+}
+
+#left{ /*This is actually right */
+    float: right;
+    width: 40%;
+    height: inherit;
+    padding: 125px 0 0 130px;
+    background:
+        linear-gradient(
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.7)
+        );
+}
+
+a{
+    color: skyblue;
+}
+
+#test-label{
+    font-size: 40px;
+    border: 2px solid #e3e3e3;
+    padding: 8px;
+}
+
+a:hover{
+    color: #fff;
+}
+
+
+#right{ /*This is actually left */
+    font-size: 20px;
+    float: right;
+    width: 60%;
+    height: inherit;
+    padding: 90px;
+    color: #fff;
+    background:
+        linear-gradient(
+                rgba(0, 0, 0, 1),
+                rgba(0, 0, 0, 0.7)
+        );
+
+}
+
+.clear{
+    clear: both;
+}
+
+.tips-header h1{
+    text-align: center;
+    font-size: 62px;
+    padding: 50px 0;
+    color: #323232;
+}
+
+.tips-header h1 span{
+    color: hotpink;
+}
+
+#tips{
+    color: #4c4c4c;
+    text-align: center;
+}
+
+.nopadding {
+   padding: 50px !important;
+   margin: 0 !important;
+   height: 320px;
+}
+
+.widget-content p{
+    padding-top: 15px;
+    font-family: 'Quattrocento', serif;
+    font-size: 15px;
+}
+/*.jumbotron{*/
+    /*background: #3F51B5;*/
+/*}*/
+
+/*.jumbotron h1{*/
+    /*color: #C5CAE9;*/
+    /*font-family: 'Lato', sans-serif;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*text-align: center;*/
+/*margin}*/
