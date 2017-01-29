@@ -7,7 +7,7 @@ a {
           Index Page
 *******************************/
 #index{
-    min-width: 360px;
+    min-width: 280px;
 }
 
 #wrapper{
@@ -31,7 +31,9 @@ a {
 }
 #grade{
     text-align: center;
-    height: 40px;
+    height: 60px;
+    font-size: 22px;
+    padding: 10px 0;
 }
 
 #index-header{
@@ -40,26 +42,21 @@ a {
     background: beige;
     overflow: hidden;
     height: 50px;
-    background:
-        linear-gradient(
-                rgba(255, 255, 100, 1),
-                rgba(255, 255, 100, 0.7)
-        ),
-        url("../img/back.jpg");
-    background-size: contain;
-    font-size: 30px;
+    background: #fff;
 
 }
-
-#index-header h1{
-    float: left;
+#vid{
+    display: none;
 }
 
+/*#grade{*/
+    /*background: green;*/
+/*}*/
 #index-header img{
-    float: right;
-    height: 40px;
-    width: 40px;
-    padding: 0;
+    height: 35px;
+    width: 160px;
+    margin-top: 5px;
+    /*border: 1px solid #000;*/
 }
 
 #index-header span{
