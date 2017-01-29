@@ -18,12 +18,14 @@ def hello():
 
 @app.route("/insertnewuser")
 def mongotest():
-    Database.insert_new_user(456)
-    result = []
-    cursor = mongo.db.users.find({}, {"_id": 0})
-    for c in cursor:
-        result.append(c)
-    return jsonify(result)
+    request_info = request.get_json(force=True)
+    account_id = request_info["user_id"]
+    Database.insert_new_user(account_id)
+    # result = []
+    # cursor = mongo.db.users.find({}, {"_id": 0})
+    # for c in cursor:
+    #     result.append(c)
+    return "ok"
 
 @app.route("/updatetemp", methods = ['POST'])
 @crossdomain(origin='*')
@@ -37,12 +39,12 @@ def updatetemp():
     print(requestJson)
     #do things with semantria API and put into db
     #analyseScore = str(analyse(message))
-    semantria_score = [-0.7, 'negative']
+    semantria_score = -0.4
     print(semantria_score)
 
 
     #store in database
-    db_doc = Database.update_temp_list(semantria_score[0], user_account)
+    db_doc = Database.update_temp_list(semantria_score, user_account)
     #
     return jsonify(db_doc)
 
