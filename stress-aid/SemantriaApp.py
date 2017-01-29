@@ -47,4 +47,4 @@ def analyse(txtInput):
     # return str(results)
 #####################################################################################
 
-print (str(analyse("I am sad")))
+#print (str(analyse("my work is irrelevant me. Fuck life!")))

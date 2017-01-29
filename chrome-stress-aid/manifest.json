@@ -10,8 +10,21 @@
    "default_icon": "static/img/icon.png",
    "default_popup": "templates/index.html"
   },
+  "background": {
+    "scripts": ["static/js/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["static/js/listenContent.js"]
+    }
+  ],
   "permissions": [
    "activeTab",
-   "storage"
+   "background",
+   "storage",
+   "tabs",
+   "http://*/",
+   "https://*/"
    ]
 }
