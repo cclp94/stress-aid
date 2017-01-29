@@ -25,7 +25,7 @@ def analyse(txtInput):
         status = session.getProcessedDocuments()
         results.extend(status)
     for data in results:
-        response = {'score':data["sentiment_score"], 'sentiment':str(data["sentiment_polarity"])}
+        response = data["sentiment_score"]
     return response
 
     # for data in results:
@@ -47,4 +47,4 @@ def analyse(txtInput):
     # return str(results)
 #####################################################################################
 
-print (str(analyse("I am sad")))
+#print (str(analyse("my work is irrelevant me. Fuck life!")))
