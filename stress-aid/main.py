@@ -39,7 +39,7 @@ def updatetemp():
     print(requestJson)
     #do things with semantria API and put into db
     #analyseScore = str(analyse(message))
-    semantria_score = -0.4
+    semantria_score = -0.2
     print(semantria_score)
 
 
@@ -48,7 +48,16 @@ def updatetemp():
     #
     return jsonify(db_doc)
 
-
+@app.route("/amidepressed", methods=['POST'])
+def amidepressed():
+    """
+    check if user is depressed or not, basically at this point just returns a JSON
+    """
+    requestJson = request.get_json(force=True)
+    user_account = requestJson["account_id"]
+    depression = Database.am_i_depressed(user_account)
+    print(depression)
+    return jsonify(depression)
 
 
 

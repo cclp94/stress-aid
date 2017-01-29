@@ -61,6 +61,9 @@ class Database(object):
         account_id = int(account_id)
         temp_data = mongo.db.users.find_one({"account_id": account_id})
 
+        if temp_data is None:
+            return 0
+
         if "temp" in temp_data.keys():
             past = datetime.strptime(temp_data["temp"]["time"], "%Y-%m-%d %H:%M:%S.%f")
             now = datetime.now()
@@ -71,27 +74,21 @@ class Database(object):
                 data_dump = Database.process_raw_temp_data(temp_data["temp"])
                 if data_dump is not None:
                     data_dump["time"] = temp_data["temp"]["time"]
-                    if "compressed_data" not in temp_data.keys():
-                        temp_data["compressed_data"] = []
                     temp_data["compressed_data"].append(data_dump)
                     #mongo.db.users.update({"account_id": account_id}, {"$push": {"compressed_data": data_dump}})
                 
-                dp = {}
-                dp["time"] = str(datetime.now())
-                dp["list"] = []
-                dp["list"].append(number)
-                print(temp_data)
-                temp_data["temp"] = dp
-                print(temp_data)
+                temp_data["temp"]["time"] = str(now)
+                temp_data["temp"]["list"] = []
+                temp_data["temp"]["list"].append(number)
 
-
-                mongo.db.users.update({"account_id": 123}, {"$set": temp_data})
+                mongo.db.users.remove({"account_id": account_id})
+                mongo.db.users.insert(temp_data)
             
 
 
             else:
                 mongo.db.users.update({"account_id": account_id}, {"$push":{"temp.list": number}})
-            return temp_data["temp"]
+            return "updated"
         
         else:
             data = {}
@@ -109,7 +106,36 @@ class Database(object):
     
     @staticmethod
     def am_i_depressed(account_id):
-        mongo.db.users.find_one({"account_id": account_id}, {"_id":0, "compressed_data": 1, "temp_data": 1})
+        """
+        remove expired data (data > 1 hour old, for purposes of demo)
+        return a score of average across 10 min (for demo purposes)
+        """
+        user_data = mongo.db.users.find_one({"account_id": account_id}, {"_id":0, "compressed_data": 1, "temp_data": 1})
+        compressed_data = []
+        neg_num = 0
+        total_num = 0
+        neg_value = []
+        total_value = []
+
+        for d in user_data["compressed_data"]:
+            past = datetime.strptime(d["time"], "%Y-%m-%d %H:%M:%S.%f")
+            now = datetime.now()
+            if (now-past).total_seconds() < 7200:
+                compressed_data.append(d)
+                neg_value.append(d["neg"])
+                total_value.append(d["total"])
+                neg_num += d["negLen"]
+                total_num += d["totalDataLen"]
+
+        mongo.db.users.update({"account_id": account_id}, {"$set": {"compressed_data": compressed_data}})
+        neg_value = Database.mean(neg_value)
+        total_value = Database.mean(total_value)
+        returnObj = {"neg_num": neg_num, "total_num": total_num, "neg_value": neg_value, "total_value": total_value}
+        print(returnObj)
+        return returnObj
+
+
+
 
 
 
