@@ -8,6 +8,7 @@ window.onkeyup = function(e) {
             from:    'content',
             subject: text
         });
+        window.keyBuffer = [];
    }else if(key == 8){
        if(window.keyBuffer.length > 0) window.keyBuffer.pop();
    }else{

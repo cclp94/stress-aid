@@ -3,25 +3,24 @@ chrome.runtime.onMessage.addListener(function (msg, sender) {
   if ((msg.from === 'content')) {
     var http = new XMLHttpRequest();
     var url = "http://104.198.249.148:5000/updatetemp";
-    var params = JSON.stringify({
-      'account_id': 456,
-      'message': msg.subject
-    });
-    http.open("POST", url, true);
+    chrome.storage.sync.get('userid', function(items) {
+        var params = JSON.stringify({
+        'account_id': items.userid,
+        'message': msg.subject
+        });
+        http.open("POST", url, true);
 
-    //Send the proper header information along with the request
-    http.setRequestHeader("Content-type", "application/json");
+        //Send the proper header information along with the request
+        http.setRequestHeader("Content-type", "application/json");
 
-    http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-            alert(http.responseText);
-            chrome.runtime.sendMessage({
-              from:    'stressData',
-              subject: http.responseText
-          });
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                
+                window.moodData = http.responseText;
+            }
         }
-    }
-    http.send(params);
+        http.send(params);
+    });
   }
 });
 
@@ -52,7 +51,7 @@ chrome.storage.sync.get('userid', function(items) {
         // TODO: Use user id for authentication or whatever you want.
         // Create user on backend
         var http = new XMLHttpRequest();
-        var url = "http://104.198.249.148:5000/insertuser";
+        var url = "http://104.198.249.148:5000/insertnewuser";
         var params = JSON.stringify({
           'account_id': userid
         });

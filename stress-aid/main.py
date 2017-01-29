@@ -46,7 +46,8 @@ def updatetemp():
     #store in database
     db_doc = Database.update_temp_list(semantria_score, user_account)
     #
-    return jsonify(db_doc)
+    depression = Database.am_i_depressed(user_account)
+    return jsonify(depression)
 
 @app.route("/amidepressed", methods=['POST'])
 def amidepressed():

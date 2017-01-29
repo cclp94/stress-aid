@@ -58,7 +58,6 @@ class Database(object):
         update the array that stores the temp list (< 6 hours)
         """
         # mongo = PyMongo(app)
-        account_id = int(account_id)
         temp_data = mongo.db.users.find_one({"account_id": account_id})
 
         if temp_data is None:
