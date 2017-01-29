@@ -16,10 +16,10 @@ def hello():
         result.append(c)
     return jsonify(result)
 
-@app.route("/insertnewuser")
+@app.route("/insertnewuser", methods=['POST'])
 def mongotest():
     request_info = request.get_json(force=True)
-    account_id = request_info["user_id"]
+    account_id = request_info["account_id"]
     Database.insert_new_user(account_id)
     # result = []
     # cursor = mongo.db.users.find({}, {"_id": 0})
