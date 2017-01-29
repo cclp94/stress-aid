@@ -17,6 +17,7 @@ a {
 
 #wrapper a{
     color: #204d74;
+    text-decoration: none;
 }
 
 .choice{
@@ -27,7 +28,13 @@ a {
 .choice i{
     float:right;
     padding-right: 12px;
-    padding-top: 10px;
+    padding-top: 15px;
+}
+
+.choice h4{
+    padding-top: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 #grade{
     text-align: center;
@@ -45,7 +52,8 @@ a {
     background: #fff;
 
 }
-#vid{
+
+#vid, #order{
     display: none;
 }
 
@@ -79,6 +87,25 @@ a {
 #cute{
     background: turquoise;
     overflow: hidden;
+    height: 200px;
+    padding-left: 60px;
+}
+
+#cute img{
+    margin: 0;
+    padding: 0;
+}
+
+.fa{
+    margin-top:19px;
+}
+
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
 }
 /******************************
           Landing Page
