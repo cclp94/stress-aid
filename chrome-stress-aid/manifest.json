@@ -10,8 +10,21 @@
    "default_icon": "static/img/icon.png",
    "default_popup": "templates/index.html"
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+  "background": {
+    "scripts": ["static/js/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["static/js/listenContent.js"]
+    }
+  ],
   "permissions": [
-   "activeTab"
+   "activeTab",
+   "background",
+   "storage",
+   "tabs",
+   "http://*/",
+   "https://*/"
    ]
 }
