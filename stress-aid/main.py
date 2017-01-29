@@ -11,7 +11,7 @@ def hello():
     result = []
     cursor = mongo.db.users.find({}, {"_id": 0})
     for c in cursor:
-    	result.append(c)
+        result.append(c)
     return jsonify(result)
 
 @app.route("/insertnewuser")
@@ -20,7 +20,7 @@ def mongotest():
     result = []
     cursor = mongo.db.users.find({}, {"_id": 0})
     for c in cursor:
-    	result.append(c)
+        result.append(c)
     return jsonify(result)
 
 @app.route("/updatetemp", methods = ['POST'])
@@ -32,12 +32,12 @@ def updatetemp():
     message = request.form["message"]
     #do things with semantria API and put into db
     #
-    semantria_score = [-0.8, 'negative']
+    semantria_score = [-0.7, 'negative']
 
     #store in database
-    Database.update_temp_list(semantria_score[0], semantria_score[1], user_account)
+    db_doc = Database.update_temp_list(semantria_score[0], user_account)
     #
-    return user_account
+    return jsonify(db_doc)
 
 
 
