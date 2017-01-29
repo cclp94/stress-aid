@@ -1,13 +1,12 @@
 from flask_pymongo import PyMongo
 from flask import Flask
-from datetime import datetime
 app = Flask(__name__)
-mongo = PyMongo(app)
 
 
 class Database(object):
     @staticmethod
     def insert_new_user(account_id):
+
         return mongo.db.users.insert({"account_id": account_id, "compressed_data": []})
 
     @staticmethod
@@ -15,48 +14,11 @@ class Database(object):
         pass
 
     @staticmethod
-    def mean(numbers):
-        return float(sum(numbers)) / max(len(numbers), 1)
-
-
-    @staticmethod
-    def process_raw_temp_data(data_dump):
-        """
-        count number of negativity and how negative, percentage of negative / positive / neutral
-        average rating for negative and for positive
-        """
-        if data_dump is None:
-            return
-        # mongo = PyMongo(app)
-        list_data = data_dump["list"]
-        result = {}
-        pos = []
-        neg = []
-        neu = []
-        
-        for d in list_data:
-            if d>0.3:
-                pos.append(d)
-            elif d< -0.3:
-                neg.append(d)
-            else:
-                neu.append(d)
-        result["posLen"] = len(pos)
-        result["negLen"] = len(neg)
-        result["neuLen"] = len(neu)
-        result["totalDataLen"] = len(list_data)
-        result["pos"] = Database.mean(pos)
-        result["neg"] = Database.mean(neg)
-        result["neu"] = Database.mean(neu)
-        result["total"] = Database.mean(list_data)
-        return result
-
-
-    @staticmethod
-    def update_temp_list(number, account_id):
+    def update_temp_list(number, quantifier, account_id):
         """
         update the array that stores the temp list (< 6 hours)
         """
+
         # mongo = PyMongo(app)
         account_id = int(account_id)
         temp_data = mongo.db.users.find_one({"account_id": account_id})
@@ -133,8 +95,6 @@ class Database(object):
         returnObj = {"neg_num": neg_num, "total_num": total_num, "neg_value": neg_value, "total_value": total_value}
         #print(returnObj)
         return returnObj
-
-
 
 
 
