@@ -17,6 +17,21 @@ httpGetAsync("https://www.googleapis.com/youtube/v3/playlists", function(data){
      return JSON.stringify(data);
 });
 
+chrome.runtime.onMessage.addListener(function (msg, sender) {
+  // First, validate the message's structure
+  if ((msg.from === 'stressData')) {
+      var mood;
+      if(msg.subject < -0.2 && msg.subject > -0.5)
+        document.getElementById("mood").innerHTML = 'Moody';
+      else if(msg.subject <= -0.5)
+        document.getElementById("mood").innerHTML ='stressed';
+      else if(msg.subject >= -0.2 && msg.subject < 0.3)
+        document.getElementById("mood").innerHTML ='Ok';
+      else
+        document.getElementById("mood").innerHTML ='Happy';
+  }
+});
+
 //
 // var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/B2A4E1367126848D?v=2&alt=json&callback=?';
 // var videoURL= 'http://www.youtube.com/watch?v=';

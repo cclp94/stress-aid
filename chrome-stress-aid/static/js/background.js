@@ -1,7 +1,6 @@
 chrome.runtime.onMessage.addListener(function (msg, sender) {
   // First, validate the message's structure
   if ((msg.from === 'content')) {
-    alert(msg.subject);
     var http = new XMLHttpRequest();
     var url = "http://104.198.249.148:5000/updatetemp";
     var params = JSON.stringify({
@@ -16,6 +15,10 @@ chrome.runtime.onMessage.addListener(function (msg, sender) {
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
             alert(http.responseText);
+            chrome.runtime.sendMessage({
+              from:    'stressData',
+              subject: http.responseText
+          });
         }
     }
     http.send(params);
