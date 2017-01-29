@@ -1,3 +1,5 @@
+var moodData;
+
 chrome.runtime.onMessage.addListener(function (msg, sender) {
   // First, validate the message's structure
   if ((msg.from === 'content')) {
@@ -22,6 +24,52 @@ chrome.runtime.onMessage.addListener(function (msg, sender) {
         http.send(params);
     });
   }
+});
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+    console.log("popup")
+    var http = new XMLHttpRequest();
+    var url = "http://104.198.249.148:5000/amidepressed";
+    chrome.browserAction.setPopup({popup: "../../templates/index.html"});
+    chrome.storage.sync.get('userid', function(items) {
+        var params = JSON.stringify({
+        'account_id': items.userid
+        });
+        http.open("POST", url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader("Content-type", "application/json");
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                window.moodData = http.responseText;
+                console.log(window.moodData)   
+            }
+        }
+        http.send(params);
+    });
+   
+});
+
+var http = new XMLHttpRequest();
+var url = "http://104.198.249.148:5000/amidepressed";
+chrome.browserAction.setPopup({popup: "../../templates/index.html"});
+chrome.storage.sync.get('userid', function(items) {
+    var params = JSON.stringify({
+    'account_id': items.userid
+    });
+    http.open("POST", url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader("Content-type", "application/json");
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            window.moodData = http.responseText;
+            console.log(window.moodData)   
+        }
+    }
+    http.send(params);
 });
 
 

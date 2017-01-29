@@ -7,6 +7,8 @@
 // }
 
 // changeColor();
+var background = chrome.extension.getBackgroundPage();
+
 
 $("#show-vid").click(function(){
     $("#vid").slideToggle();
@@ -27,24 +29,19 @@ httpGetAsync("https://www.googleapis.com/youtube/v3/playlists", function(data){
      return JSON.stringify(data);
 });
 
-chrome.runtime.onMessage.addListener(function (msg, sender) {
-  // First, validate the message's structure
-  if ((msg.from === 'stressData')) {
-      var mood;
-      if(msg.subject < -0.2 && msg.subject > -0.5)
-         document.getElementById("mood").innerHTML = 'Feeling Glum? &#128550;',
-         document.getElementById("grade").style.backgroundColor = "#D8278F";
-      else if(msg.subject <= -0.5)
-         document.getElementById("mood").innerHTML ='Feeling Stressed? &#128543;',
-         document.getElementById("grade").style.backgroundColor = "#C62929";
-      else if(msg.subject >= -0.2 && msg.subject < 0.3)
-          document.getElementById("mood").innerHTML = 'Feeling Okay &#128528;',
-          document.getElementById("grade").style.backgroundColor = "#30AECE";
+setInterval(function(){
+   if(background.moodData){
+    var mood = JSON.parse(background.moodData)["total_value"];
+      if(mood < '-0.2' && mood > '-0.5')
+        document.getElementById("mood").innerHTML = 'Moody';
+      else if(mood <= '-0.5')
+        document.getElementById("mood").innerHTML ='stressed';
+      else if(mood >= '-0.2' && mood < '0.3')
+        document.getElementById("mood").innerHTML ='Ok';
       else
-        document.getElementById("mood").innerHTML = 'Feeling Good! &#128515';
-        document.getElementById("grade").style.backgroundColor = "#5FE878";
+        document.getElementById("mood").innerHTML ='Happy';
   }
-});
+  }, 1000);
 
 //
 // var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/B2A4E1367126848D?v=2&alt=json&callback=?';

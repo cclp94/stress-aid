@@ -15,16 +15,20 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["<all_urls>", "http://*/*", "https://*/*"],
       "js": ["static/js/listenContent.js"]
     }
   ],
+  "content_security_policy":"script-src 'self' https://ajax.googleapis.com/  https://use.fontawesome.com/; object-src 'self'",
   "permissions": [
    "activeTab",
    "background",
    "storage",
    "tabs",
-   "http://*/",
-   "https://*/"
+   "http://*/*",
+   "https://*/*",
+   "https://use.fontawesome.com/*",
+   "https://ajax.googleapis.com/*"
+
    ]
 }
