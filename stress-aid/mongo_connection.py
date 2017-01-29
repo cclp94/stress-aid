@@ -66,12 +66,12 @@ class Database(object):
             now = datetime.now()
 
             #if it's 1 hour since the temp data dump started, then compress it and start new temp data dump
-            if (now-past).total_seconds() > 10:
+            if (now-past).total_seconds() > 60:
                 #start new temp fuck me and compress data duck me
                 data_dump = Database.process_raw_temp_data(temp_data["temp"])
                 if data_dump is not None:
                     data_dump["time"] = temp_data["temp"]["time"]
-                    if temp_data["compressed_data"] is None:
+                    if "compressed_data" not in temp_data.keys():
                         temp_data["compressed_data"] = []
                     temp_data["compressed_data"].append(data_dump)
                     #mongo.db.users.update({"account_id": account_id}, {"$push": {"compressed_data": data_dump}})
@@ -106,9 +106,10 @@ class Database(object):
 
 
         return temp_data
-        
-
-
+    
+    @staticmethod
+    def am_i_depressed(account_id):
+        mongo.db.users.find_one({"account_id": account_id}, {"_id":0, "compressed_data": 1, "temp_data": 1})
 
 
 
