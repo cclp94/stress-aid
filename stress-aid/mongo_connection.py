@@ -19,6 +19,7 @@ class Database(object):
         return float(sum(numbers)) / max(len(numbers), 1)
 
 
+    @staticmethod
     def process_raw_temp_data(data_dump):
         """
         count number of negativity and how negative, percentage of negative / positive / neutral
@@ -58,34 +59,39 @@ class Database(object):
         """
         # mongo = PyMongo(app)
         account_id = int(account_id)
-        temp_data_list = mongo.db.users.find({"account_id": account_id}, {"_id": 0, "account_id": 1, "temp": 1})
-    
-        temp_data = []
-        for td in temp_data_list:
-            temp_data.append(td)
-            print(td)
+        temp_data = mongo.db.users.find_one({"account_id": account_id})
 
-        print(temp_data)
-        if "temp" in temp_data[0].keys():
-            past = datetime.strptime(temp_data[0]["temp"]["time"], "%Y-%m-%d %H:%M:%S.%f")
+        if "temp" in temp_data.keys():
+            past = datetime.strptime(temp_data["temp"]["time"], "%Y-%m-%d %H:%M:%S.%f")
             now = datetime.now()
-            if (now-past).total_seconds() > 3600:
+
+            #if it's 1 hour since the temp data dump started, then compress it and start new temp data dump
+            if (now-past).total_seconds() > 10:
                 #start new temp fuck me and compress data duck me
-                data_dump = Database.process_raw_temp_data(temp_data[0]["temp"])
+                data_dump = Database.process_raw_temp_data(temp_data["temp"])
                 if data_dump is not None:
-                    data_dump["time"] = temp_data[0]["temp"]["time"]
-                    mongo.db.users.update_one({"account_id": account_id}, {"$push": {"compressed_data": data_dump}})
+                    data_dump["time"] = temp_data["temp"]["time"]
+                    if temp_data["compressed_data"] is None:
+                        temp_data["compressed_data"] = []
+                    temp_data["compressed_data"].append(data_dump)
+                    #mongo.db.users.update({"account_id": account_id}, {"$push": {"compressed_data": data_dump}})
+                
                 dp = {}
                 dp["time"] = str(datetime.now())
                 dp["list"] = []
                 dp["list"].append(number)
-                mongo.db.users.update_one({"accound_id": account_id}, {"$set": {"temp": dp}})
+                print(temp_data)
+                temp_data["temp"] = dp
+                print(temp_data)
+
+
+                mongo.db.users.update({"account_id": 123}, {"$set": temp_data})
             
 
 
             else:
-                mongo.db.users.update_one({"account_id": account_id}, {"$push":{"temp.list": number}})
-            return temp_data[0]["temp"]
+                mongo.db.users.update({"account_id": account_id}, {"$push":{"temp.list": number}})
+            return temp_data["temp"]
         
         else:
             data = {}
@@ -94,7 +100,7 @@ class Database(object):
             data["list"].append(number)
 
 
-            mongo.db.users.update_one({"account_id": account_id}, {"$set": {"temp": data}})
+            mongo.db.users.update({"account_id": account_id}, {"$set": {"temp": data}})
 
             return "updated"
 

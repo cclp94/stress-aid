@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, make_response
 from flask_pymongo import PyMongo
-from SemantriaApp import analyse
+#from SemantriaApp import analyse
 from mongo_connection import Database
 from crossDomainAuth import crossdomain
 
@@ -34,11 +34,11 @@ def updatetemp():
     requestJson = request.get_json(force=True)
     user_account = requestJson["account_id"]
     message = requestJson["message"]
+    print(requestJson)
     #do things with semantria API and put into db
-    #
-    analyseScore = str(analyse(message))
+    #analyseScore = str(analyse(message))
     semantria_score = [-0.7, 'negative']
-    print(analyseScore)
+    print(semantria_score)
 
 
     #store in database
