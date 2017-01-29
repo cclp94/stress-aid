@@ -8,7 +8,7 @@ mongo = PyMongo(app)
 class Database(object):
     @staticmethod
     def insert_new_user(account_id):
-        return mongo.db.users.insert({"account_id": account_id})
+        return mongo.db.users.insert({"account_id": account_id, "compressed_data": []})
 
     @staticmethod
     def retreive_account():
@@ -131,7 +131,7 @@ class Database(object):
         neg_value = Database.mean(neg_value)
         total_value = Database.mean(total_value)
         returnObj = {"neg_num": neg_num, "total_num": total_num, "neg_value": neg_value, "total_value": total_value}
-        print(returnObj)
+        #print(returnObj)
         return returnObj
 
 
