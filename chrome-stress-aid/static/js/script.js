@@ -9,9 +9,23 @@
 // changeColor();
 var background = chrome.extension.getBackgroundPage();
 
-
+var displayed = 0;
 $("#show-vid").click(function(){
     $("#vid").slideToggle();
+    displayed++;
+    displayed = displayed % 2;
+    if (displayed === 0){
+        $("#video").height("100px");
+    } else{
+        $("#video").height("230px");
+    }
+});
+
+
+
+
+$("#show-order").click(function(){
+    $("#order").slideToggle();
 });
 
 function httpGetAsync(theUrl, callback)
