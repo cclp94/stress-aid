@@ -1,6 +1,12 @@
 //https://www.youtube.com/watch?v=fRh_vgS2dFE&list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj
 //youtube playlist
+// function changeColor(){
+//           document.getElementById("mood").innerHTML = 'Feeling Okay &#128528;',
+//
+//
+// }
 
+// changeColor();
 
 function httpGetAsync(theUrl, callback)
 {
@@ -22,13 +28,17 @@ chrome.runtime.onMessage.addListener(function (msg, sender) {
   if ((msg.from === 'stressData')) {
       var mood;
       if(msg.subject < -0.2 && msg.subject > -0.5)
-        document.getElementById("mood").innerHTML = 'Moody';
+         document.getElementById("mood").innerHTML = 'Feeling Glum? &#128550;',
+         document.getElementById("grade").style.backgroundColor = "#D8278F";
       else if(msg.subject <= -0.5)
-        document.getElementById("mood").innerHTML ='stressed';
+         document.getElementById("mood").innerHTML ='Feeling Stressed? &#128543;',
+         document.getElementById("grade").style.backgroundColor = "#C62929";
       else if(msg.subject >= -0.2 && msg.subject < 0.3)
-        document.getElementById("mood").innerHTML ='Ok';
+          document.getElementById("mood").innerHTML = 'Feeling Okay &#128528;',
+          document.getElementById("grade").style.backgroundColor = "#30AECE";
       else
-        document.getElementById("mood").innerHTML ='Happy';
+        document.getElementById("mood").innerHTML = 'Feeling Good! &#128515';
+        document.getElementById("grade").style.backgroundColor = "#5FE878";
   }
 });
 

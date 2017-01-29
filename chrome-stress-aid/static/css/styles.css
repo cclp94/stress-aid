@@ -31,7 +31,9 @@ a {
 }
 #grade{
     text-align: center;
-    height: 40px;
+    height: 60px;
+    font-size: 22px;
+    padding: 10px 0;
 }
 
 #index-header{
