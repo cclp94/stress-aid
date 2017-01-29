@@ -8,6 +8,10 @@
 
 // changeColor();
 
+$("#show-vid").click(function(){
+    $("#vid").slideToggle();
+});
+
 function httpGetAsync(theUrl, callback)
 {
     var xmlHttp = new XMLHttpRequest();
