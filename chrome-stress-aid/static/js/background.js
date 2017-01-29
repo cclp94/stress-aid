@@ -54,7 +54,7 @@ chrome.storage.sync.get('userid', function(items) {
         var http = new XMLHttpRequest();
         var url = "http://104.198.249.148:5000/insertuser";
         var params = JSON.stringify({
-          'user_id': userid
+          'account_id': userid
         });
         http.open("POST", url, true);
 
